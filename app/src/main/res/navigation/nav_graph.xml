@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="devandroid.felipe.usergithubsearch.fragments.SplashScreenFragment"
+        android:label="SplashScreenFragment"
+        tools:layout="@layout/fragment_splashscreen" >
+        <action
+            android:id="@+id/go_to_userSearchFragment"
+            app:destination="@id/userSearchFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userSearchFragment"
+        android:name="devandroid.felipe.usergithubsearch.fragments.UserSearchFragment"
+        android:label="UserSearchFragment"
+        tools:layout="@layout/fragment_user_search"/>
+
+</navigation>
