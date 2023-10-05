@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import devandroid.felipe.usergithubsearch.R
 import devandroid.felipe.usergithubsearch.databinding.FragmentSplashscreenBinding
@@ -42,7 +43,6 @@ class SplashScreenFragment : Fragment(), AnimatorListener {
     }
 
     override fun onAnimationStart(animator: Animator) {
-
     }
 
     override fun onAnimationEnd(animator: Animator) {
@@ -51,15 +51,14 @@ class SplashScreenFragment : Fragment(), AnimatorListener {
             onAnimationEnd(animator)
         } else {
             findNavController().navigate(R.id.go_to_userSearchFragment)
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
         }
     }
 
     override fun onAnimationCancel(animator: Animator) {
-
     }
 
     override fun onAnimationRepeat(animator: Animator) {
-
     }
 
 
