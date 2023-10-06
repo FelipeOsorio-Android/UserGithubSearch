@@ -33,11 +33,10 @@
 
             <TextView
                 android:id="@+id/repository_text_project"
+                style="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="30"
-                android:textSize="16sp"
-                android:text="123"
+                android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -3,6 +3,7 @@ package devandroid.felipe.usergithubsearch.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,19 +46,23 @@ class UserSearchFragment : Fragment(), TextWatcher {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapter()
+
         setupRetrofit()
+        setupAdapter()
         observer()
+
     }
 
 
     override fun onResume() {
         super.onResume()
 
+
         editUser.addTextChangedListener(this)
 
         buttonSearch.setOnClickListener {
             viewModel.getUserGitHub(editUser.text.toString())
+
         }
     }
 
@@ -79,6 +84,7 @@ class UserSearchFragment : Fragment(), TextWatcher {
     private fun observer() {
         viewModel.user.observe(viewLifecycleOwner) {
             getListRepository(it)
+
         }
     }
 
@@ -96,20 +102,18 @@ class UserSearchFragment : Fragment(), TextWatcher {
     }
 
     private fun getListRepository(user: String) {
-        githubApi.getAllRepositoryByUser(user).enqueue(object : Callback<List<RepositoryModel>> {
+        githubApi.getAllRepositoriesByUser(user).enqueue(object : Callback<List<RepositoryModel>> {
             override fun onResponse(
-                call: Call<List<RepositoryModel>>,
-                response: Response<List<RepositoryModel>>
+                call: Call<List<RepositoryModel>>, response: Response<List<RepositoryModel>>
             ) {
                 when (response.isSuccessful) {
-                    true -> {
-                        response.body()?.let {
-                            recyclerView.isVisible = true
-                            adapter.getListRepository(it)
-                        }
+                    true -> response.body()?.let {
+                        recyclerView.isVisible = true
+                        adapter.getListRepository(it)
+                        Log.e("cade2", "observer: $it")
                     }
 
-                    else -> {
+                    false -> {
                         Snackbar.make(
                             binding.root,
                             "Não Encontrado",

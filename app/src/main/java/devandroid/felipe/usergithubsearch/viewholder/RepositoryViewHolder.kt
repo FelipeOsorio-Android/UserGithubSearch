@@ -5,10 +5,10 @@ import devandroid.felipe.usergithubsearch.databinding.RepositoryItemBinding
 import devandroid.felipe.usergithubsearch.model.RepositoryModel
 
 class RepositoryViewHolder(
-    private val view: RepositoryItemBinding
-) : RecyclerView.ViewHolder(view.root) {
+    private val item: RepositoryItemBinding
+) : RecyclerView.ViewHolder(item.root) {
 
     fun bind(repository: RepositoryModel) {
-        view.repositoryTextProject.text = repository.nameRepository
+        item.repositoryTextProject.text = repository.name
     }
 }

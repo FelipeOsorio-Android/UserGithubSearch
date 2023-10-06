@@ -9,13 +9,13 @@ import devandroid.felipe.usergithubsearch.viewholder.RepositoryViewHolder
 
 class RepositoryAdapter : RecyclerView.Adapter<RepositoryViewHolder>() {
 
-    private var listRepository: List<RepositoryModel> = emptyList()
+    private var listRepository: List<RepositoryModel> = arrayListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val view = RepositoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RepositoryViewHolder(view)
     }
 
-    override fun getItemCount(): Int = listRepository.size
+    override fun getItemCount(): Int = listRepository.count()
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
         holder.bind(listRepository[position])
