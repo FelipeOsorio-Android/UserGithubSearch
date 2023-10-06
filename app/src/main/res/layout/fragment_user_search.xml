@@ -19,6 +19,7 @@
         app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fragment_user_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -35,6 +36,8 @@
         android:text="Buscar"
         android:textStyle="bold"
         android:textSize="16sp"
+        android:enabled="false"
+        android:focusable="false"
         app:cornerRadius="0dp"
         app:icon="@drawable/ic_search"
         app:iconGravity="textStart"
@@ -43,9 +46,11 @@
         app:layout_constraintTop_toBottomOf="@id/fragment_user_text_input" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_user_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/fragment_user_button_search"
         app:layout_constraintStart_toStartOf="parent"
