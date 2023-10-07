@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 class UserSearchViewModel : ViewModel() {
 
-    private val _user =  MutableLiveData<String>()
+    private val _user = MutableLiveData<String>()
     val user: LiveData<String> = _user
 
     fun getUserGitHub(user: String) {

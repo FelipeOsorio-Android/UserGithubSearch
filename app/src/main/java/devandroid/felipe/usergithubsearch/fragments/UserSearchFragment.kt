@@ -1,5 +1,8 @@
 package devandroid.felipe.usergithubsearch.fragments
 
+import android.content.Intent
+import android.location.GnssAntennaInfo.Listener
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,10 +13,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.google.android.material.snackbar.Snackbar
 import devandroid.felipe.usergithubsearch.adapter.RepositoryAdapter
 import devandroid.felipe.usergithubsearch.data.GitHubService
 import devandroid.felipe.usergithubsearch.databinding.FragmentUserSearchBinding
+import devandroid.felipe.usergithubsearch.listener.UserSearchListener
 import devandroid.felipe.usergithubsearch.model.RepositoryModel
 import devandroid.felipe.usergithubsearch.viewmodel.UserSearchViewModel
 import retrofit2.Call
@@ -33,6 +38,7 @@ class UserSearchFragment : Fragment(), TextWatcher {
     private val viewModel by viewModels<UserSearchViewModel>()
 
     private val adapter = RepositoryAdapter()
+    private lateinit var listener: UserSearchListener
     private lateinit var githubApi: GitHubService
 
     override fun onCreateView(
@@ -49,20 +55,18 @@ class UserSearchFragment : Fragment(), TextWatcher {
 
         setupRetrofit()
         setupAdapter()
+        setupListener()
         observer()
-
     }
 
 
     override fun onResume() {
         super.onResume()
 
-
         editUser.addTextChangedListener(this)
 
         buttonSearch.setOnClickListener {
             viewModel.getUserGitHub(editUser.text.toString())
-
         }
     }
 
@@ -81,10 +85,34 @@ class UserSearchFragment : Fragment(), TextWatcher {
 
     override fun afterTextChanged(s: Editable?) {}
 
+    private fun setupListener() {
+        listener = object : UserSearchListener {
+            override fun shareRepository(url: String) {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, url)
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
+
+            override fun openRepository(url: String) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(url)
+                    )
+                )
+            }
+
+        }
+        adapter.getListener(listener)
+    }
+
     private fun observer() {
         viewModel.user.observe(viewLifecycleOwner) {
             getListRepository(it)
-
         }
     }
 
@@ -109,11 +137,11 @@ class UserSearchFragment : Fragment(), TextWatcher {
                 when (response.isSuccessful) {
                     true -> response.body()?.let {
                         recyclerView.isVisible = true
-                        adapter.getListRepository(it)
-                        Log.e("cade2", "observer: $it")
+                        adapter.getList(it)
                     }
 
                     false -> {
+                        recyclerView.isVisible = false
                         Snackbar.make(
                             binding.root,
                             "Não Encontrado",

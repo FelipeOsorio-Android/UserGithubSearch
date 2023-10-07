@@ -46,7 +46,7 @@ class SplashScreenFragment : Fragment(), AnimatorListener {
     }
 
     override fun onAnimationEnd(animator: Animator) {
-        if(animator.isRunning) {
+        if (animator.isRunning) {
             animator.end()
             onAnimationEnd(animator)
         } else {
