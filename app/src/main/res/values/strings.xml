@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">UserGithubSearch</string>
+    <string name="user">User</string>
+    <string name="search">Search</string>
+    <string name="not_found">Usuário não encontrado</string>
+    <string name="server_down">Erro ao buscar o usuário</string>
+    <string name="user_null">Usuário inexistente</string>
 </resources>

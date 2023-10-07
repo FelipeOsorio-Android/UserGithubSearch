@@ -1,8 +1,8 @@
 package devandroid.felipe.usergithubsearch.ui
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import devandroid.felipe.usergithubsearch.R
 
